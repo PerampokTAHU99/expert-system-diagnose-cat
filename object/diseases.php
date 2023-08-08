@@ -7,7 +7,7 @@ if (empty($_GET)) {
     $result = array();
     while ($row = mysqli_fetch_array($query)) {
         array_push($result, array(
-            'id_disease' => $row['id_disease'],
+            'idDisease' => $row['idDisease'],
             'codeOfDisease' => $row['codeOfDisease'],
             'nameOfDisease' => $row['nameOfDisease'],
             'latinNameOfDisease' => $row['latinNameOfDisease'],
@@ -22,12 +22,12 @@ if (empty($_GET)) {
         array('result' => $result)
     );
 }else{
-    $query = mysqli_query($conn, "SELECT * FROM diseases WHERE id_disease = ". $_GET ['id_disease']);
+    $query = mysqli_query($conn, "SELECT * FROM diseases WHERE idDisease = ". $_GET ['idDisease']);
 
     $result = array();
     while ($row = $query -> fetch_assoc()) {
         $result = array (
-            'id_disease' => $row['id_disease'],
+            'idDisease' => $row['idDisease'],
             'codeOfDisease' => $row['codeOfDisease'],
             'nameOfDisease' => $row['nameOfDisease'],
             'latinNameOfDisease' => $row['latinNameOfDisease'],

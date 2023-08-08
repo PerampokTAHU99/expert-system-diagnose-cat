@@ -201,9 +201,9 @@ require '../function.php';
                                         <!-- Modal body -->
                                         <form method="POST" action="../function.php">
                                             <div class="modal-body">
-                                                <input type="text" name="nameDoctor" placeholder="Nama Admin" class="form-control" required>
+                                                <input type="text" name="nameUser" placeholder="Nama User" class="form-control" required>
                                                 <br>
-                                                <input type="text" name="usernameDoctor" placeholder="Username Doktor" class="form-control" required>
+                                                <input type="text" name="usernameUser" placeholder="Username Doktor" class="form-control" required>
                                                 <br>
                                                 <input type="text" name="email" placeholder="E-mail" class="form-control" required>
                                                 <br>
@@ -215,7 +215,7 @@ require '../function.php';
                                             </div>
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <button type="submit" name="addNewDoctor" class="btn btn-primary">Submit</button>
+                                                <button type="submit" name="addNewUser" class="btn btn-primary">Submit</button>
                                             </div>
                                         </form>
                                     </div>

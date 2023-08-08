@@ -102,10 +102,10 @@ if (isset($_POST['updateDoctor'])) {
 
     $update = mysqli_query($link, "UPDATE users SET name = '$nameDoctor', username = '$usernameDoctor', email= '$email' , password = '$password' WHERE userId = '$userId'");
     if ($update) {
-        header('location:admin/page-users.php');
+        header('location:admin/page-doctor.php');
     } else {
         echo 'gagal';
-        header('location:admin/page-users.php');
+        header('location:admin/page-doctor.php');
     }
 }
 
@@ -123,17 +123,42 @@ if (isset($_POST['deleteDoctor'])) {
     }
 }
 
+//add new Doctors
+if (isset($_POST['addNewUser'])) {
+    global $link;
+    $nameUser = $_POST['nameUser'];
+    $usernameUser = $_POST['usernameUser'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $addToTable = mysqli_query($link, "INSERT INTO users (name, username, email, password, roleId) VALUES ('$nameUser','$usernameUser','$email','$password','4003')");
+    if ($addToTable) {
+        echo "
+        <script>
+        window.location = 'admin/page-users.php';
+        </script>
+        ";
+    } else {
+        echo 'gagal';
+        echo "
+        <script>
+            window.location = 'admin/page-users.php';
+        </script>
+        ";
+    }
+}
+
 //Update info user
 if (isset($_POST['updateUser'])) {
     global $link;
 
     $userId = $_POST['userId'];
-    $nameDoctor = $_POST['nameDoctor'];
-    $usernameDoctor = $_POST['usernameDoctor'];
+    $nameUser = $_POST['nameUser'];
+    $usernameUser = $_POST['usernameUser'];
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $update = mysqli_query($link, "UPDATE users SET name = '$nameDoctor', username = '$usernameDoctor', email= '$email' , password = '$password' WHERE userId = '$userId'");
+    $update = mysqli_query($link, "UPDATE users SET name = '$nameUser', username = '$usernameUser', email= '$email' , password = '$password' WHERE userId = '$userId'");
     if ($update) {
         header('location:admin/page-users.php');
     } else {
@@ -149,10 +174,10 @@ if (isset($_POST['deleteUser'])) {
     $userId = $_POST['userId'];
     $delete = mysqli_query($link, "DELETE FROM users WHERE userId = '$userId'");
     if ($delete) {
-        header('location:admin/page-doctor.php');
+        header('location:admin/page-users.php');
     } else {
         echo 'gagal';
-        header('location:admin/page-doctor.php');
+        header('location:admin/page-users.php');
     }
 }
 
