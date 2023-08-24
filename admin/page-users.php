@@ -189,38 +189,37 @@ require '../function.php';
 
                         <!-- The Modal -->
                         <div class="modal fade" id="myModal">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
 
-                                        <!-- Modal Header -->
-                                        <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
-                                            <h4 class="modal-title">Tambah User</h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-
-                                        <!-- Modal body -->
-                                        <form method="POST" action="../function.php">
-                                            <div class="modal-body">
-                                                <input type="text" name="nameUser" placeholder="Nama User" class="form-control" required>
-                                                <br>
-                                                <input type="text" name="usernameUser" placeholder="Username Doktor" class="form-control" required>
-                                                <br>
-                                                <input type="text" name="email" placeholder="E-mail" class="form-control" required>
-                                                <br>
-                                                <div class="d-flex align-items-center">
-                                                    <input type="password" id="password" name="password" placeholder="Password" class="form-control" required>
-                                                    <i onclick="setPasswordVisibility()" class="bi bi-eye-slash ml-2" id="togglePassword"></i>
-                                                </div>
-
-                                            </div>
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <button type="submit" name="addNewUser" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
+                                    <!-- Modal Header -->
+                                    <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
+                                        <h4 class="modal-title">Tambah User</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
+
+                                    <!-- Modal body -->
+                                    <form method="POST" action="../function.php">
+                                        <div class="modal-body">
+                                            <input type="text" name="nameUser" placeholder="Nama User" class="form-control" required>
+                                            <br>
+                                            <input type="text" name="usernameUser" placeholder="Username User" class="form-control" required>
+                                            <br>
+                                            <input type="text" name="email" placeholder="E-mail" class="form-control" required>
+                                            <br>
+                                            <div class="d-flex align-items-center">
+                                                <input type="password" id="password" name="password" placeholder="Password" class="form-control" required>
+                                                <i onclick="setPasswordVisibility()" class="bi bi-eye-slash ml-2" id="togglePassword"></i>
+                                            </div>
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="submit" name="addNewUser" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
+                        </div>
                         <div class="card-body">
 
                             <div class="table-responsive">
@@ -251,26 +250,26 @@ require '../function.php';
                                             while ($data = mysqli_fetch_array($takeAllUserData)) {
                                                 $userId = $data['userId'];
                                                 $nameUser = $data['name'];
-                                                $usernameUser= $data['username'];
+                                                $usernameUser = $data['username'];
                                                 $email = $data['email'];
                                                 $password = $data['password'];
                                             ?>
-                                            <td class="text-center"><?= $i++ ?></td>
-                                            <td><?= $nameUser ?></td>
-                                            <td><?= $usernameUser ?></td>
-                                            <td><?= $email ?></td>
-                                            <td class="text-center">
-                                                <div>
-                                                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit<?= $userId; ?>">
-                                                        Edit
-                                                    </button>
-                                                    <span class="mx-1"></span>
-                                                    <input type="hidden" name="itemToDeleted" value="<?= $userId; ?>">
-                                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<?= $userId; ?>">
-                                                        Delete
-                                                    </button>
-                                                </div>
-                                            </td>
+                                                <td class="text-center"><?= $i++ ?></td>
+                                                <td><?= $nameUser ?></td>
+                                                <td><?= $usernameUser ?></td>
+                                                <td><?= $email ?></td>
+                                                <td class="text-center">
+                                                    <div>
+                                                        <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit<?= $userId; ?>">
+                                                            Edit
+                                                        </button>
+                                                        <span class="mx-1"></span>
+                                                        <input type="hidden" name="itemToDeleted" value="<?= $userId; ?>">
+                                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<?= $userId; ?>">
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </td>
                                         </tr>
                                         <!-- The Edit Modal -->
                                         <div class="modal fade" id="edit<?= $userId; ?>">
@@ -286,16 +285,24 @@ require '../function.php';
                                                     <!-- Modal body -->
                                                     <form method="POST" action="../function.php">
                                                         <div class="modal-body">
-                                                            <h6>Nama User</h6>
-                                                            <input type="text" name="nameUser" value="<?= $nameUser; ?>" placeholder="Nama User" class="form-control mb-2" required>
-                                                            <h6>Usernamme</h6>
-                                                            <input type="text" name="usernameUser" value="<?= $usernameUser; ?>" placeholder="Username" class="form-control mb-2" required>
-                                                            <h6>E-mail</h6>
-                                                            <input type="text" name="email" value="<?= $email; ?>" placeholder="email" class="form-control mb-2" required>
-                                                            <h6>Password</h6>
-                                                            <div class="d-flex align-items-center">
-                                                                <input type="password" id="password<?= $i ?>" name="password" placeholder="Password" class="form-control" value="<?= $password; ?>" required>
-                                                                <i onclick="setPasswordVisibility(<?= $i ?>)" class="bi bi-eye-slash ml-2" id="togglePassword<?= $i ?>"></i>
+                                                            <div class="form-group">
+                                                                <label for="nameUser" class="">Nama User</label>
+                                                                <input type="text" id="nameUser" name="nameUser" value="<?= $nameUser; ?>" placeholder="Nama User" class="form-control mb-2" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="usernameUser" class="">Username</label>
+                                                                <input type="text" id="usernameUser" name="usernameUser" value="<?= $usernameUser; ?>" placeholder="Username" class="form-control mb-2" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="email" class="">E-mail</label>
+                                                                <input type="text" id="email" name="email" value="<?= $email; ?>" placeholder="email" class="form-control mb-2" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="password" class="">Password</label>
+                                                                <div class="d-flex align-items-center">
+                                                                    <input type="password" id="password<?= $i ?>" name="password" placeholder="Password" class="form-control" value="<?= $password; ?>" required>
+                                                                    <i onclick="setPasswordVisibility(<?= $i ?>)" class="bi bi-eye-slash ml-2" id="togglePassword<?= $i ?>"></i>
+                                                                </div>
                                                             </div>
                                                             <input type="hidden" name="userId" value="<?= $userId; ?>">
                                                         </div>

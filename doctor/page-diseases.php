@@ -93,8 +93,8 @@ require '../function.php';
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-light fa-users"></i>
                     <i class="fa-light fa-clock-rotate-left"></i>
-                    
-                    
+
+
                     <span>Riwayat Diagnosa</span></a>
             </li>
 
@@ -190,31 +190,44 @@ require '../function.php';
 
                         <!-- The Modal -->
                         <div class="modal fade" id="myModal">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
 
-                                        <!-- Modal Header -->
-                                        <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
-                                            <h4 class="modal-title">Tambah Penyakit</h4>
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        </div>
-
-                                        <!-- Modal body -->
-                                        <form method="POST" action="../function.php">
-                                            <div class="modal-body">
-                                                <input type="text" name="symptomsCode" placeholder="Kode Gejala" class="form-control" required>
-                                                <br>
-                                                <input type="text" name="symptomsDesc" placeholder="Deskripsi Gejala" class="form-control" required>
-                                                
-                                            </div>
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <button type="submit" name="addNewSymptom" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </form>
+                                    <!-- Modal Header -->
+                                    <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
+                                        <h4 class="modal-title">Tambah Penyakit</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     </div>
+
+                                    <!-- Modal body -->
+                                    <form method="POST" action="../function.php" enctype="multipart/form-data">
+                                        <div class="modal-body">
+                                            <input type="text" name="diseasesCode" placeholder="kode Penyakit" class="form-control" required>
+                                            <br>
+                                            <input type="text" name="diseasesName" placeholder="Nama Penyakit" class="form-control" required>
+                                            <br>
+                                            <input type="text" name="diseasesLatin" placeholder="Nama Latin" class="form-control mb-3" required>
+                                            <label class="form-label ml-2" for="uploadPict">Gambar</label>
+                                            <div class="form-group">
+                                                <input type="file" class="form-control-file" id="uploadPict" />
+                                            </div>
+                                            <br>
+                                            <textarea class="form-control" id="" name="Desc" placeholder="Deskripsi" required></textarea>
+                                            <input type="textarea" name="Desc" placeholder="Deskripsi" class="form-control" required>
+                                            <br>
+                                            <input type="text" name="Precation" placeholder="Pencegahan" class="form-control" required>
+                                            <br>
+                                            <input type="text" name="Solution" placeholder="Solusi" class="form-control" required>
+
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="submit" name="addNewDisease" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
+                        </div>
                         <div class="card-body">
 
                             <div class="table-responsive">
@@ -225,7 +238,7 @@ require '../function.php';
                                             <th>Kode Penyakit</th>
                                             <th>Nama Penyakit</th>
                                             <th>Nama Latin</th>
-                                            <th>Picture</th>
+                                            <th>Gambar</th>
                                             <th>Deskripsi</th>
                                             <th>Pencegahan</th>
                                             <th>Solusi</th>
@@ -238,7 +251,7 @@ require '../function.php';
                                             <th>Kode Penyakit</th>
                                             <th>Nama Penyakit</th>
                                             <th>Nama Latin</th>
-                                            <th>Picture</th>
+                                            <th>Gambar</th>
                                             <th>Deskripsi</th>
                                             <th>Pencegahan</th>
                                             <th>Solusi</th>
@@ -260,47 +273,70 @@ require '../function.php';
                                                 $precautionDisease = $data['precaution'];
                                                 $solutionDisease = $data['solution'];
                                             ?>
-                                            <td class="text-center"><?= $i++ ?></td>
-                                            <td><?= $codeDisease ?></td>
-                                            <td><?= $nameDisease ?></td>
-                                            <td><?= $latinDisease ?></td>
-                                            <td><img src="<?= $pictureDisease ?>" alt="Picture <?=$nameDisease?>"></td>
-                                            <td><?= $descDisease ?></td>
-                                            <td><?= $precautionDisease ?></td>
-                                            <td><?= $solutionDisease ?></td>
-                                            <td class="text-center">
-                                                <div>
-                                                    <img src="" alt="">
-                                                    <button type="button" class="btn btn-warning btn-sm mb-1" data-toggle="modal" data-target="#edit<?= $symptomsId; ?>">
-                                                        Edit
-                                                    </button>
-                                                    <span class="mx-1"></span>
-                                                    <input type="hidden" name="itemToDeleted" value="<?= $symptomsId; ?>">
-                                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<?= $symptomsId; ?>">
-                                                        Delete
-                                                    </button>
-                                                </div>
-                                            </td>
+                                                <td class="text-center"><?= $i++ ?></td>
+                                                <td><?= $codeDisease ?></td>
+                                                <td><?= $nameDisease ?></td>
+                                                <td><?= $latinDisease ?></td>
+                                                <td><img src="<?= $pictureDisease ?>" alt="Picture <?= $nameDisease ?>"></td>
+                                                <td><?= $descDisease ?></td>
+                                                <td><?= $precautionDisease ?></td>
+                                                <td><?= $solutionDisease ?></td>
+                                                <td class="text-center">
+                                                    <div>
+                                                        <button type="button" class="btn btn-warning btn-sm mb-1" data-toggle="modal" data-target="#edit<?= $diseaseId; ?>">
+                                                            Edit
+                                                        </button>
+                                                        <span class="mx-1"></span>
+                                                        <input type="hidden" name="itemToDeleted" value="<?= $diseaseId; ?>">
+                                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<?= $diseaseId; ?>">
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                </td>
                                         </tr>
                                         <!-- The Edit Modal -->
-                                        <div class="modal fade" id="edit<?= $symptomsId; ?>">
+                                        <div class="modal fade" id="edit<?= $diseaseId; ?>">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
 
                                                     <!-- Modal Header -->
                                                     <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
-                                                        <h4 class="modal-title">Edit User</h4>
+                                                        <h4 class="modal-title">Edit Diseases</h4>
                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                     </div>
 
                                                     <!-- Modal body -->
                                                     <form method="POST" action="../function.php">
                                                         <div class="modal-body">
-                                                            <input type="text" name="symptomsCode" value="<?= $symptomsCode; ?>" class="form-control" required>
-                                                            <br>
-                                                            <input type="text" name="symptomsCode" value="<?= $symptomsDesc; ?>" class="form-control" required>
-                                                            <br>
-                                                            <input type="hidden" name="symptomsId" value="<?= $symptomsId; ?>">
+                                                            <div class="from-group">
+                                                                <label for="" class="col-form-label">Kode Penyakit</label>
+                                                                <input type="text" name="diseasesCode" value="<?= $codeDisease; ?>" class="form-control" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="" class="col-form-label">Nama Penyakit</label>
+                                                                <input type="text" name="diseasesName" value="<?= $nameDisease; ?>" class="form-control" required>
+                                                            </div>
+                                                            <div class="from-group">
+                                                                <label for="" class="">Nama Latin</label>
+                                                                <input type="text" name="diseasesLatin" value="<?= $latinDisease; ?>" class="form-control" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="" class="col-form-label">Gambar</label>
+                                                                <input type="file" class="form-control-file" id="uploadPict" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="" class="">Deskripsi Penyakit</label>
+                                                                <textarea class="form-control" id="" required><?= $descDisease; ?></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="" class="">Pencegahan Penyakit</label>
+                                                                <textarea class="form-control" id="" required><?= $precautionDisease; ?></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="" class="">Solusi Penyakit</label>
+                                                                <textarea class="form-control" id="" required><?= $solutionDisease; ?></textarea>
+                                                            </div>
+                                                            <input type="hidden" name="diseasesId" value="<?= $symptomsId; ?>">
                                                         </div>
                                                         <!-- Modal footer -->
                                                         <div class="modal-footer">
@@ -331,8 +367,7 @@ require '../function.php';
                                                         </div>
                                                         <!-- Modal footer -->
                                                         <div class="modal-footer">
-                                                            <button type="submit" name="deleteSymptom" 
-                                                            class="btn btn-danger">Delete</button>
+                                                            <button type="submit" name="deleteSymptom" class="btn btn-danger">Delete</button>
                                                         </div>
                                                     </form>
                                                 </div>

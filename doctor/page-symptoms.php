@@ -184,7 +184,7 @@ require '../function.php';
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
                             <h6 class="m-0 font-weight-bold text-primary">Data Symptoms</h6>
                             <div>
-                                <button type="button" class="btn btn-success btn-sm inline" data-toggle="modal" data-target="#myModal">Tambah Penyakit</button>
+                                <button type="button" class="btn btn-success btn-sm inline" data-toggle="modal" data-target="#myModal">Tambah Gejala</button>
                             </div>
                         </div>
 
@@ -269,17 +269,21 @@ require '../function.php';
 
                                                     <!-- Modal Header -->
                                                     <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
-                                                        <h4 class="modal-title">Edit User</h4>
+                                                        <h4 class="modal-title">Edit Gejala</h4>
                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                     </div>
 
                                                     <!-- Modal body -->
                                                     <form method="POST" action="../function.php">
                                                         <div class="modal-body">
-                                                            <input type="text" name="symptomsCode" value="<?= $symptomsCode; ?>" class="form-control" required>
-                                                            <br>
-                                                            <input type="text" name="symptomsDesc" value="<?= $symptomsDesc; ?>" class="form-control" required>
-                                                            <br>
+                                                            <div class="form-group">
+                                                                <label for="symptomsCode" class="">Nama Gejala</label>
+                                                                <input type="text" id="symptomsCode" name="symptomsCode" value="<?= $symptomsCode; ?>" class="form-control" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="symptomsDesc" class="">Deskripsi Gejala</label>
+                                                                <input type="text" id="symptomsDesc" name="symptomsDesc" value="<?= $symptomsDesc; ?>" class="form-control" required>
+                                                            </div>
                                                             <input type="hidden" name="symptomsId" value="<?= $symptomsId; ?>">
                                                         </div>
                                                         <!-- Modal footer -->

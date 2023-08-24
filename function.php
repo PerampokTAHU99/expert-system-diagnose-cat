@@ -123,7 +123,7 @@ if (isset($_POST['deleteDoctor'])) {
     }
 }
 
-//add new Doctors
+//add new user
 if (isset($_POST['addNewUser'])) {
     global $link;
     $nameUser = $_POST['nameUser'];
@@ -221,7 +221,7 @@ if (isset($_POST['updateSymptom'])) {
     }
 }
 
-//delete doctor
+//delete Symptom
 if (isset($_POST['deleteSymptom'])) {
     global $link;
 
@@ -232,5 +232,28 @@ if (isset($_POST['deleteSymptom'])) {
     } else {
         echo 'gagal';
         header('location:doctor/page-symptoms.php');
+    }
+}
+
+//add new disease
+if (isset($_POST['addNewSymptom'])) {
+    global $link;
+    $symptomsCode = $_POST['symptomsCode'];
+    $symptomsDesc = $_POST['symptomsDesc'];
+
+    $addToTable = mysqli_query($link, "INSERT INTO symptoms (codeOfSymptom, descOfSymptom) VALUES ('$symptomsCode','$symptomsDesc')");
+    if ($addToTable) {
+        echo "
+        <script>
+        window.location = 'doctor/page-symptoms.php';
+        </script>
+        ";
+    } else {
+        echo 'gagal';
+        echo "
+        <script>
+            window.location = 'doctor/page-symptoms.php';
+        </script>
+        ";
     }
 }

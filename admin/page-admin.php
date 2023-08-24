@@ -285,19 +285,26 @@ require '../function.php';
                                                     <!-- Modal body -->
                                                     <form method="POST" action="../function.php">
                                                         <div class="modal-body">
-                                                            <h6>Nama Admin</h6>
-                                                            <input type="text" name="nameAdmin" value="<?= $nameAdmin; ?>" placeholder="Nama Admin" class="form-control mb-2" required>
-                                                            <h6>Username Admin</h6>
-                                                            <input type="text" name="usernameAdmin" value="<?= $usernameAdmin; ?>" placeholder="usernameAdmin" class="form-control mb-2" required>
-                                                            <h6>E-mail Admin</h6>
-                                                            <input type="text" name="email" value="<?= $email; ?>" placeholder="email" class="form-control mb-2" required>
-                                                            <h6>Password Admin</h6>
-                                                            <div class="d-flex align-items-center">
-                                                                <input type="password" id="password<?= $i ?>" name="password" placeholder="Password" class="form-control" value="<?= $password; ?>" required>
-                                                                <i onclick="setPasswordVisibility(<?= $i ?>)" class="bi bi-eye-slash ml-2" id="togglePassword<?= $i ?>"></i>
+                                                            <div class="form-group">
+                                                                <label for="nameAdmin" class="">Nama Admin</label>
+                                                                <input type="text" id="nameAdmin" name="nameAdmin" value="<?= $nameAdmin; ?>" placeholder="Nama Admin" class="form-control" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="usernameAdmin" class="">Username Admin</label>
+                                                                <input type="text" id="usernameAdmin" name="usernameAdmin" value="<?= $usernameAdmin; ?>" placeholder="usernameAdmin" class="form-control" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="email" class="">E-mail</label>
+                                                                <input type="text" id="email" name="email" value="<?= $email; ?>" placeholder="email" class="form-control" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="password" class="">Password</label>
+                                                                <div class="d-flex align-items-center">
+                                                                    <input type="password" id="password<?= $i ?>" name="password" placeholder="Password" class="form-control" value="<?= $password; ?>" required>
+                                                                    <i onclick="setPasswordVisibility(<?= $i ?>)" class="bi bi-eye-slash ml-2" id="togglePassword<?= $i ?>"></i>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <br>
                                                         <input type="hidden" name="userId" value="<?= $userId; ?>">
                                                         <!-- Modal footer -->
                                                         <div class="modal-footer">
