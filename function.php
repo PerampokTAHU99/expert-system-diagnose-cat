@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 //connection db
 $link = mysqli_connect("localhost", "root", "", "diagnose_cat");
 if (!$link) {
@@ -235,25 +233,136 @@ if (isset($_POST['deleteSymptom'])) {
     }
 }
 
-//add new disease
-if (isset($_POST['addNewSymptom'])) {
-    global $link;
-    $symptomsCode = $_POST['symptomsCode'];
-    $symptomsDesc = $_POST['symptomsDesc'];
+//upload picture
+function upload()
+{
+    $targetDir = 'img/diseases/diseases'; // Directory where you want to save the uploaded images
+    $nameExt = explode('.', $_FILES["picture"]["name"]);
+    $nameExt = end($nameExt);
+    $nameFile = basename(time() . '.' . $nameExt);
+    $targetFile = $targetDir . $nameFile;
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
-    $addToTable = mysqli_query($link, "INSERT INTO symptoms (codeOfSymptom, descOfSymptom) VALUES ('$symptomsCode','$symptomsDesc')");
+    // Check if the uploaded file is an actual image or a fake image
+    if (isset($_FILES["picture"])) {
+        $check = getimagesize($_FILES["picture"]["tmp_name"]);
+        if ($check !== false) {
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+    }
+
+    // Check if file already exists
+    if (file_exists($nameFile)) {
+        echo "File already exists.";
+        $uploadOk = 0;
+    }
+
+    // Check file size
+    if ($_FILES["picture"]["size"] > 500000) {
+        echo "File is too large.";
+        $uploadOk = 0;
+    }
+
+    // Allow only specific image file formats
+    if (
+        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif"
+    ) {
+        echo "Only JPG, JPEG, PNG, and GIF files are allowed.";
+        $uploadOk = 0;
+    }
+
+    if ($uploadOk == 0) {
+        echo "File was not uploaded.";
+    } else {
+        if (move_uploaded_file($_FILES["picture"]["tmp_name"], $targetFile)) {
+            echo "File has been uploaded.";
+            return $targetFile;
+        } else {
+            echo "There was an error uploading the file.";
+        }
+    }
+}
+
+//add new disease
+if (isset($_POST['addNewDisease'])) {
+    global $link;
+    $codeDisease = $_POST['diseasesCode'];
+    $nameDisease = $_POST['diseasesName'];
+    $latinDisease = $_POST['diseasesLatin'];
+    $pictureDisease = $_FILES['picture'];
+    $descDisease = $_POST['Desc'];
+    $precautionDisease = $_POST['Precation'];
+    $solutionDisease = $_POST['Solution'];
+
+    //upload picture
+    $picture = upload(); 
+
+    $addToTable = mysqli_query($link, "INSERT INTO diseases (codeOfDisease, nameOfDisease, latinNameOfDisease, picture, description, precaution, solution) VALUES ('$codeDisease','$nameDisease','$latinDisease','$picture','$descDisease','$precautionDisease','$solutionDisease')");
     if ($addToTable) {
         echo "
         <script>
-        window.location = 'doctor/page-symptoms.php';
+        window.location = 'doctor/page-diseases.php';
         </script>
         ";
     } else {
         echo 'gagal';
         echo "
         <script>
-            window.location = 'doctor/page-symptoms.php';
+            window.location = 'doctor/page-diseases.php';
         </script>
         ";
     }
+}
+
+//Update info disease
+if (isset($_POST['updateDisease'])) {
+    global $link;
+
+    $diseasesId = $_POST['diseasesId'];
+    $diseasesCode = $_POST['diseasesCode'];
+    $diseasesName = $_POST['diseasesName'];
+    $diseasesLatin = $_POST['diseasesLatin'];
+    $pictureDisease = $_FILES['picture'];
+    $diseasesDesc = $_POST['diseasesDesc'];
+    $diseasesPre = $_POST['diseasesPre'];
+    $diseasesSol = $_POST['diseasesSol'];
+    
+    //upload picture
+    $picture = upload(); 
+    
+    $update = mysqli_query($link, "UPDATE diseases SET codeOfDisease = '$diseasesCode', nameOfDisease = '$diseasesName', latinNameOfDisease = '$diseasesLatin', picture = '$pictureDisease', description = '$diseasesDesc', precaution = '$diseasesPre', solution = '$diseasesSol' WHERE idDisease = '$diseasesId'");
+
+    if ($update) {
+        header('location:doctor/page-diseases.php');
+    } else {
+        echo 'gagal';
+        header('location:doctor/page-diseases.php');
+    }
+}
+
+function countUsers($roleId){
+    global $link;
+    $countAdmin = mysqli_query($link,"SELECT COUNT(roleId) AS usersCount FROM users WHERE roleId = $roleId;");
+    return mysqli_fetch_assoc($countAdmin)['usersCount'];
+}
+
+function countExpertSystem($expertSystem){
+    global $link;
+    $count = 0;
+    if($expertSystem == "disease") {
+        $count = mysqli_query($link,"SELECT COUNT(idDisease) as count FROM diseases");
+    }else if($expertSystem == 'symptom') {
+        $count = mysqli_query($link,"SELECT COUNT(idSymptom) as count FROM symptoms");
+    }else if($expertSystem == "rule"){
+        $count = mysqli_query($link,"SELECT COUNT(rulesId) as count FROM rules");
+    }else if($expertSystem == "diagnose"){
+        $count = mysqli_query($link,"SELECT COUNT(idDiagnose) as count FROM diagnoses");
+    }
+    
+    return mysqli_fetch_assoc($count)['count'];
 }

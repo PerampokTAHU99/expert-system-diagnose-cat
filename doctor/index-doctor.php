@@ -1,5 +1,15 @@
 <?php
-// require 'function.php';
+session_start();
+
+if(isset($_SESSION['roleId'])) {
+    if($_SESSION['roleId'] != '4002') {
+        header("location: ../login.php");
+    }
+}else{
+    header("location: ../login.php");
+}
+
+require '../function.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +48,7 @@
                 </div>
                 <div class="sidebar-brand-text mx-3">E-Cat diagnose</div>
             </a>
- 
+
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
@@ -69,7 +79,7 @@
                         <h6 class="collapse-header">choose :</h6>
                         <a class="collapse-item" href="page-symptoms.php">Gejala</a>
                         <a class="collapse-item" href="page-diseases.php">Penyakit</a>
-                        <a class="collapse-item" href="#">Rules</a>
+                        <a class="collapse-item" href="page-rules.php">Rules</a>
                     </div>
                 </div>
             </li>
@@ -89,8 +99,8 @@
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-light fa-users"></i>
                     <i class="fa-light fa-clock-rotate-left"></i>
-                    
-                    
+
+
                     <span>Riwayat Diagnosa</span></a>
             </li>
 
@@ -113,7 +123,7 @@
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <h2 class="ml-auto">
+                    <h2 class="ml-auto">
                         Aplikasi Sistem Pakar Diagnosa Penyakit Pada Kucing
                     </h2>
 
@@ -177,6 +187,12 @@
 
                     <!-- Content Row -->
                     <div class="row">
+                        <?php
+                        $cd = countExpertSystem("disease");
+                        $cs = countExpertSystem("symptom");
+                        $cr = countExpertSystem("rule");
+                        $ch = countExpertSystem("diagnose");
+                        ?>
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
@@ -185,8 +201,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                                Data Gejala</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $cd ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -203,7 +219,7 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
+                                                Data Penyakit</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
                                         </div>
                                         <div class="col-auto">
@@ -220,7 +236,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1"> Data Rules
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
@@ -248,7 +264,7 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
+                                                Data Riwayat Diagnosa</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                                         </div>
                                         <div class="col-auto">

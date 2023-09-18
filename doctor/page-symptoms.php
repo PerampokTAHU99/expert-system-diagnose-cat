@@ -73,7 +73,7 @@ require '../function.php';
                         <h6 class="collapse-header">choose :</h6>
                         <a class="collapse-item" href="page-symptoms.php">Gejala</a>
                         <a class="collapse-item" href="page-diseases.php">Penyakit</a>
-                        <a class="collapse-item" href="#">Rules</a>
+                        <a class="collapse-item" href="page-rules.php">Rules</a>
                     </div>
                 </div>
             </li>

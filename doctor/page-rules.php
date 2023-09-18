@@ -93,8 +93,8 @@ require '../function.php';
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-light fa-users"></i>
                     <i class="fa-light fa-clock-rotate-left"></i>
-
-
+                    
+                    
                     <span>Riwayat Diagnosa</span></a>
             </li>
 
@@ -175,56 +175,46 @@ require '../function.php';
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Data tables Diseases</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Data tables Rules</h1>
                     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                         For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Diseases</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Data Symptoms</h6>
                             <div>
-                                <button type="button" class="btn btn-success btn-sm inline" data-toggle="modal" data-target="#myModal">Tambah Penyakit</button>
+                                <button type="button" class="btn btn-success btn-sm inline" data-toggle="modal" data-target="#myModal">Tambah Gejala</button>
                             </div>
                         </div>
 
                         <!-- The Modal -->
                         <div class="modal fade" id="myModal">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
 
-                                    <!-- Modal Header -->
-                                    <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
-                                        <h4 class="modal-title">Tambah Penyakit</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
+                                        <!-- Modal Header -->
+                                        <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
+                                            <h4 class="modal-title">Tambah Rules</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
 
-                                    <!-- Modal body -->
-                                    <form method="POST" action="../function.php" enctype="multipart/form-data">
-                                        <div class="modal-body">
-                                            <input type="text" name="diseasesCode" placeholder="kode Penyakit" class="form-control" required>
-                                            <br>
-                                            <input type="text" name="diseasesName" placeholder="Nama Penyakit" class="form-control" required>
-                                            <br>
-                                            <input type="text" name="diseasesLatin" placeholder="Nama Latin" class="form-control mb-3" required>
-                                            <label class="form-label ml-2" for="uploadPict">Gambar</label>
-                                            <div class="form-group">
-                                                <input type="file" name="picture" class="form-control-file" id="uploadPict" />
+                                        <!-- Modal body -->
+                                        <form method="POST" action="../function.php">
+                                            <div class="modal-body">
+                                                <input type="text" name="symptomsCode" placeholder="Kode Gejala" class="form-control" required>
+                                                <br>
+                                                <input type="text" name="symptomsDesc" placeholder="Deskripsi Gejala" class="form-control" required>
+                                                
                                             </div>
-                                            <textarea class="form-control" id="" name="Desc" placeholder="Deskripsi" required></textarea>
-                                            <br>
-                                            <textarea class="form-control" id="" name="Precation" placeholder="Pencegahan" required></textarea>
-                                            <br>
-                                            <textarea class="form-control" id="" name="Solution" placeholder="Solusi" required></textarea>
-                                        </div>
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <button type="submit" name="addNewDisease" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </form>
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="submit" name="addNewSymptom" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         <div class="card-body">
 
                             <div class="table-responsive">
@@ -234,147 +224,110 @@ require '../function.php';
                                             <th>No</th>
                                             <th>Kode Penyakit</th>
                                             <th>Nama Penyakit</th>
-                                            <th>Nama Latin</th>
-                                            <th>Gambar</th>
-                                            <th>Deskripsi</th>
-                                            <th>Pencegahan</th>
-                                            <th>Solusi</th>
-                                            <th>aksi</th>
+                                            <th>Daftar Gejala</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Kode Penyakit</th>
-                                            <th>Nama Penyakit</th>
-                                            <th>Nama Latin</th>
-                                            <th>Gambar</th>
-                                            <th>Deskripsi</th>
-                                            <th>Pencegahan</th>
-                                            <th>Solusi</th>
-                                            <th>aksi</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <?php
-                                            $takeAllDiseasesData = mysqli_query($link, "SELECT * FROM diseases");
-                                            $i = 1;
-                                            while ($data = mysqli_fetch_array($takeAllDiseasesData)) {
-                                                $diseaseId = $data['idDisease'];
-                                                $codeDisease = $data['codeOfDisease'];
-                                                $nameDisease = $data['nameOfDisease'];
-                                                $latinDisease = $data['latinNameOfDisease'];
-                                                $pictureDisease = $data['picture'];
-                                                $descDisease = $data['description'];
-                                                $precautionDisease = $data['precaution'];
-                                                $solutionDisease = $data['solution'];
-                                            ?>
+                                        <?php
+                                        $takeAllDiseaseData= mysqli_query($link,"SELECT DISTINCT codeOfDisease, idDisease, nameOfDisease FROM diseases JOIN rules USING(idDisease)");
+                                        $i = 1;
+                                        while ($data = mysqli_fetch_array($takeAllDiseaseData)) {
+                                            $diseaseId = $data['idDisease'];
+                                            $codeDisease = $data['codeOfDisease'];
+                                            $nameDisease = $data['nameOfDisease'];
+                                        ?>
+                                            <tr>
                                                 <td class="text-center"><?= $i++ ?></td>
                                                 <td><?= $codeDisease ?></td>
                                                 <td><?= $nameDisease ?></td>
-                                                <td><?= $latinDisease ?></td>
-                                                <td><img src="../<?= $pictureDisease ?>" alt="Picture <?= $nameDisease ?> " width="250"></td>
-                                                <td><?= $descDisease ?></td>
-                                                <td><?= $precautionDisease ?></td>
-                                                <td><?= $solutionDisease ?></td>
+                                                <td>
+                                                    <ul>
+                                                        <?php
+                                                        $takeAllRuleData = mysqli_query($link,"SELECT * FROM rules JOIN symptoms USING(idSymptom) WHERE idDisease = $diseaseId");
+                                                        $i = 1;
+                                                        while ($row = mysqli_fetch_array($takeAllRuleData)) {
+                                                            $codeOfSymptom = $row['codeOfSymptom'];
+                                                            $descOfSymptom = $row['descOfSymptom'];
+                                                        ?>
+                                                            <li><?= $codeOfSymptom ?> - <?= $descOfSymptom ?></li>
+                                                        <?php } ?>
+                                                    </ul>
+                                                </td>
                                                 <td class="text-center">
                                                     <div>
-                                                        <button type="button" class="btn btn-warning btn-sm mb-1" data-toggle="modal" data-target="#edit<?= $diseaseId; ?>">
+                                                        <button type="button" class="btn btn-warning btn-sm mb-1" data-toggle="modal" data-target="#edit<?= $symptomsId; ?>">
                                                             Edit
                                                         </button>
                                                         <span class="mx-1"></span>
-                                                        <input type="hidden" name="itemToDeleted" value="<?= $diseaseId; ?>">
-                                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<?= $diseaseId; ?>">
+                                                        <input type="hidden" name="itemToDeleted" value="<?= $symptomsId; ?>">
+                                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<?= $symptomsId; ?>">
                                                             Delete
                                                         </button>
                                                     </div>
                                                 </td>
-                                        </tr>
-                                        <!-- The Edit Modal -->
-                                        <div class="modal fade" id="edit<?= $diseaseId; ?>">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
+                                            </tr>
+                                            <!-- The Edit Modal -->
+                                            <div class="modal fade" id="edit<?= $symptomsId; ?>">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
 
-                                                    <!-- Modal Header -->
-                                                    <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
-                                                        <h4 class="modal-title">Edit Diseases</h4>
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
+                                                            <h4 class="modal-title">Edit Gejala</h4>
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+
+                                                        <!-- Modal body -->
+                                                        <form method="POST" action="../function.php">
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <label for="symptomsCode" class="">Nama Gejala</label>
+                                                                    <input type="text" id="symptomsCode" name="symptomsCode" value="<?= $symptomsCode; ?>" class="form-control" required>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="symptomsDesc" class="">Deskripsi Gejala</label>
+                                                                    <input type="text" id="symptomsDesc" name="symptomsDesc" value="<?= $symptomsDesc; ?>" class="form-control" required>
+                                                                </div>
+                                                                <input type="hidden" name="symptomsId" value="<?= $symptomsId; ?>">
+                                                            </div>
+                                                            <!-- Modal footer -->
+                                                            <div class="modal-footer">
+                                                                <button type="submit" name="updateSymptom" class="btn btn-primary">Submit</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
-
-                                                    <!-- Modal body -->
-                                                    <form method="POST" action="../function.php" enctype="multipart/form-data">
-                                                        <div class="modal-body">
-                                                            <div class="from-group">
-                                                                <label for="diseasesCode" class="col-form-label">Kode Penyakit</label>
-                                                                <input type="text" id="diseasesCode" name="diseasesCode" value="<?= $codeDisease; ?>" class="form-control" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="diseasesName" class="col-form-label">Nama Penyakit</label>
-                                                                <input type="text" id="diseasesName" name="diseasesName" value="<?= $nameDisease; ?>" class="form-control" required>
-                                                            </div>
-                                                            <div class="from-group">
-                                                                <label for="diseasesLatin" class="">Nama Latin</label>
-                                                                <input type="text" id="diseasesLatin" name="diseasesLatin" value="<?= $latinDisease; ?>" class="form-control" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="picture" class="col-form-label">Gambar</label>
-                                                                <input type="file" name="picture" id="picture" class="form-control-file" id="uploadPict" />
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="diseasesDesc" class="">Deskripsi Penyakit</label>
-                                                                <textarea class="form-control" name="diseasesDesc" id="diseasesDesc" required><?= $descDisease; ?></textarea>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="diseasesPre" class="">Pencegahan Penyakit</label>
-                                                                <textarea class="form-control" name="diseasesPre" id="diseasesPre" required><?= $precautionDisease; ?></textarea>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="diseasesSol" class="">Solusi Penyakit</label>
-                                                                <textarea class="form-control" name="diseasesSol" id="diseasesSol" required><?= $solutionDisease; ?></textarea>
-                                                            </div>
-                                                            <input type="hidden" name="diseasesId" value="<?= $diseasesId; ?>">
-                                                        </div>
-                                                        <!-- Modal footer -->
-                                                        <div class="modal-footer">
-                                                            <button type="submit" name="updateDisease" class="btn btn-primary">Submit</button>
-                                                        </div>
-                                                    </form>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <!-- The Delete Modal -->
-                                        <div class="modal fade" id="delete<?= $symptomsId; ?>">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
+                                            <!-- The Delete Modal -->
+                                            <div class="modal fade" id="delete<?= $symptomsId; ?>">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
 
-                                                    <!-- Modal Header -->
-                                                    <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
-                                                        <h4 class="modal-title">Hapus data gejala</h4>
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
+                                                            <h4 class="modal-title">Hapus data gejala</h4>
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+
+                                                        <!-- Modal body -->
+                                                        <form method="POST" action="../function.php">
+                                                            <div class="modal-body">
+                                                                Apakah anda yakin menghapus <?= $symptomsDesc; ?> ?
+                                                                <br>
+                                                                <input type="hidden" name="symptomsId" value="<?= $symptomsId; ?>">
+                                                            </div>
+                                                            <!-- Modal footer -->
+                                                            <div class="modal-footer">
+                                                                <button type="submit" name="deleteSymptom" 
+                                                                class="btn btn-danger">Delete</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
-
-                                                    <!-- Modal body -->
-                                                    <form method="POST" action="../function.php">
-                                                        <div class="modal-body">
-                                                            Apakah anda yakin menghapus <?= $symptomsDesc; ?> ?
-                                                            <br>
-                                                            <input type="hidden" name="symptomsId" value="<?= $symptomsId; ?>">
-                                                        </div>
-                                                        <!-- Modal footer -->
-                                                        <div class="modal-footer">
-                                                            <button type="submit" name="deleteSymptom" class="btn btn-danger">Delete</button>
-                                                        </div>
-                                                    </form>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                    <?php
-                                            };
-                                    ?>
-                                    </tr>
+                                        <?php }; ?>
                                     </tbody>
                                 </table>
                             </div>
