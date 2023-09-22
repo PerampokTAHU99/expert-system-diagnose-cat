@@ -1,4 +1,13 @@
 <?php
+session_start();
+
+if(isset($_SESSION['roleId'])) {
+    if($_SESSION['roleId'] != '4002') {
+        header("location: ../login.php");
+    }
+}else{
+    header("location: ../login.php");
+}
 require '../function.php';
 ?>
 
