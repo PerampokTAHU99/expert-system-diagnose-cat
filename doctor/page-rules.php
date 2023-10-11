@@ -99,7 +99,7 @@ require '../function.php';
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="page-diagnoses.php">
                     <i class="fas fa-fw fa-light fa-users"></i>
                     <i class="fa-light fa-clock-rotate-left"></i>
                     
@@ -163,7 +163,7 @@ require '../function.php';
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?=$_SESSION['name']?></span>
                                 <img class="img-profile rounded-circle" src="../img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -185,15 +185,14 @@ require '../function.php';
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Data tables Rules</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+                    <p class="mb-4">Pada halaman ini memuat tabel data informasi manajemen mengenai rules sistem pakar penyakit pada kucing, rules berisikan nama penyakit dan beberapa gejalanya .</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Symptoms</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Data Rules</h6>
                             <div>
-                                <button type="button" class="btn btn-success btn-sm inline" data-toggle="modal" data-target="#myModal">Tambah Gejala</button>
+                                <button type="button" class="btn btn-success btn-sm inline" data-toggle="modal" data-target="#myModal">Tambah Rule</button>
                             </div>
                         </div>
 
@@ -211,14 +210,42 @@ require '../function.php';
                                         <!-- Modal body -->
                                         <form method="POST" action="../function.php">
                                             <div class="modal-body">
-                                                <input type="text" name="symptomsCode" placeholder="Kode Gejala" class="form-control" required>
+                                                <select name="thisIdDiseases" id="" class="form-control">
+                                                    <option value="">Jenis Penyakit</option>
+                                                    <?php
+                                                    $takeAllData = mysqli_query($link, "SELECT * FROM diseases");
+                                                    while ($fetcharray = mysqli_fetch_array($takeAllData)) {
+                                                        $thisNameDiseases = $fetcharray['nameOfDisease'];
+                                                        $thisIdDiseases = $fetcharray['idDisease'];
+                                                        $thisCodeDiseases = $fetcharray['codeOfDisease'];
+                                                    ?>
+                                                        <option value="<?= $thisIdDiseases; ?>"><?= $thisCodeDiseases; ?> - <?= $thisNameDiseases; ?>
+                                                        </option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
                                                 <br>
-                                                <input type="text" name="symptomsDesc" placeholder="Deskripsi Gejala" class="form-control" required>
+                                                <select name="thisIdSymptoms" id="" class="form-control">
+                                                    <option value="">Jenis Gejala</option>
+                                                    <?php
+                                                    $takeAllData = mysqli_query($link, "SELECT * FROM symptoms");
+                                                    while ($fetcharray = mysqli_fetch_array($takeAllData)) {
+                                                        $thisNameSymptomps = $fetcharray['descOfSymptom'];
+                                                        $thisIdSymptoms = $fetcharray['idSymptom'];
+                                                        $thisCodeSymptoms = $fetcharray['codeOfSymptom'];
+                                                    ?>
+                                                        <option value="<?= $thisIdSymptoms; ?>"><?= $thisCodeSymptoms; ?> - <?= $thisNameSymptomps; ?>
+                                                        </option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
                                                 
                                             </div>
                                             <!-- Modal footer -->
                                             <div class="modal-footer">
-                                                <button type="submit" name="addNewSymptom" class="btn btn-primary">Submit</button>
+                                                <button type="submit" name="addNewRule" class="btn btn-primary">Submit</button>
                                             </div>
                                         </form>
                                     </div>
@@ -245,16 +272,21 @@ require '../function.php';
                                             $diseaseId = $data['idDisease'];
                                             $codeDisease = $data['codeOfDisease'];
                                             $nameDisease = $data['nameOfDisease'];
+
+                                            $takeAllRuleData = mysqli_query($link,"SELECT * FROM rules JOIN symptoms USING(idSymptom) WHERE idDisease = $diseaseId");
+                                            $i = 1;
+
+                                            $total = mysqli_num_rows($takeAllRuleData);
                                         ?>
                                             <tr>
                                                 <td class="text-center"><?= $i++ ?></td>
+
                                                 <td><?= $codeDisease ?></td>
                                                 <td><?= $nameDisease ?></td>
                                                 <td>
                                                     <ul>
                                                         <?php
-                                                        $takeAllRuleData = mysqli_query($link,"SELECT * FROM rules JOIN symptoms USING(idSymptom) WHERE idDisease = $diseaseId");
-                                                        $i = 1;
+                                                        
                                                         while ($row = mysqli_fetch_array($takeAllRuleData)) {
                                                             $codeOfSymptom = $row['codeOfSymptom'];
                                                             $descOfSymptom = $row['descOfSymptom'];
@@ -265,77 +297,41 @@ require '../function.php';
                                                 </td>
                                                 <td class="text-center">
                                                     <div>
-                                                        <button type="button" class="btn btn-warning btn-sm mb-1" data-toggle="modal" data-target="#edit<?= $symptomsId; ?>">
-                                                            Edit
-                                                        </button>
-                                                        <span class="mx-1"></span>
-                                                        <input type="hidden" name="itemToDeleted" value="<?= $symptomsId; ?>">
-                                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<?= $symptomsId; ?>">
+                                                        <input type="hidden" name="itemToDeleted" value="<?= $diseaseId; ?>">
+                                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete-<?= $diseaseId; ?>">
                                                             Delete
                                                         </button>
                                                     </div>
+
+                                                    <!-- The Delete Modal -->
+                                                    <div class="modal fade" id="delete-<?= $diseaseId; ?>">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+
+                                                                <!-- Modal Header -->
+                                                                <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
+                                                                    <h4 class="modal-title">Hapus data rules</h4>
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                </div>
+
+                                                                <!-- Modal body -->
+                                                                <form method="POST" action="../function.php">
+                                                                    <div class="modal-body">
+                                                                        Apakah anda yakin menghapus <?= $diseaseId; ?> ?
+                                                                        <br>
+                                                                        <input type="hidden" name="idDisease" value="<?= $diseaseId; ?>">
+                                                                    </div>
+                                                                    <!-- Modal footer -->
+                                                                    <div class="modal-footer">
+                                                                        <button type="submit" name="deleteRules" 
+                                                                        class="btn btn-danger">Delete</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </td>
                                             </tr>
-                                            <!-- The Edit Modal -->
-                                            <div class="modal fade" id="edit<?= $symptomsId; ?>">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-
-                                                        <!-- Modal Header -->
-                                                        <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
-                                                            <h4 class="modal-title">Edit Gejala</h4>
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        </div>
-
-                                                        <!-- Modal body -->
-                                                        <form method="POST" action="../function.php">
-                                                            <div class="modal-body">
-                                                                <div class="form-group">
-                                                                    <label for="symptomsCode" class="">Nama Gejala</label>
-                                                                    <input type="text" id="symptomsCode" name="symptomsCode" value="<?= $symptomsCode; ?>" class="form-control" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="symptomsDesc" class="">Deskripsi Gejala</label>
-                                                                    <input type="text" id="symptomsDesc" name="symptomsDesc" value="<?= $symptomsDesc; ?>" class="form-control" required>
-                                                                </div>
-                                                                <input type="hidden" name="symptomsId" value="<?= $symptomsId; ?>">
-                                                            </div>
-                                                            <!-- Modal footer -->
-                                                            <div class="modal-footer">
-                                                                <button type="submit" name="updateSymptom" class="btn btn-primary">Submit</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- The Delete Modal -->
-                                            <div class="modal fade" id="delete<?= $symptomsId; ?>">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-
-                                                        <!-- Modal Header -->
-                                                        <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
-                                                            <h4 class="modal-title">Hapus data gejala</h4>
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        </div>
-
-                                                        <!-- Modal body -->
-                                                        <form method="POST" action="../function.php">
-                                                            <div class="modal-body">
-                                                                Apakah anda yakin menghapus <?= $symptomsDesc; ?> ?
-                                                                <br>
-                                                                <input type="hidden" name="symptomsId" value="<?= $symptomsId; ?>">
-                                                            </div>
-                                                            <!-- Modal footer -->
-                                                            <div class="modal-footer">
-                                                                <button type="submit" name="deleteSymptom" 
-                                                                class="btn btn-danger">Delete</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         <?php }; ?>
                                     </tbody>
                                 </table>
@@ -383,7 +379,7 @@ require '../function.php';
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.php">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>

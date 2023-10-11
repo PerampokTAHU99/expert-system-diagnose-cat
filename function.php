@@ -262,7 +262,7 @@ function upload()
     }
 
     // Check file size
-    if ($_FILES["picture"]["size"] > 500000) {
+    if ($_FILES["picture"]["size"] > 5000000) {
         echo "File is too large.";
         $uploadOk = 0;
     }
@@ -333,11 +333,29 @@ if (isset($_POST['updateDisease'])) {
     $diseasesSol = $_POST['diseasesSol'];
     
     //upload picture
-    $picture = upload(); 
-    
-    $update = mysqli_query($link, "UPDATE diseases SET codeOfDisease = '$diseasesCode', nameOfDisease = '$diseasesName', latinNameOfDisease = '$diseasesLatin', picture = '$pictureDisease', description = '$diseasesDesc', precaution = '$diseasesPre', solution = '$diseasesSol' WHERE idDisease = '$diseasesId'");
+    if($pictureDisease['full_path'] != '') {
+        $picture = upload(); 
+        
+        $update = mysqli_query($link, "UPDATE diseases SET codeOfDisease = '$diseasesCode', nameOfDisease = '$diseasesName', latinNameOfDisease = '$diseasesLatin', picture = '$picture', description = '$diseasesDesc', precaution = '$diseasesPre', solution = '$diseasesSol' WHERE idDisease = '$diseasesId'");
+    }else{
+        $update = mysqli_query($link, "UPDATE diseases SET codeOfDisease = '$diseasesCode', nameOfDisease = '$diseasesName', latinNameOfDisease = '$diseasesLatin', description = '$diseasesDesc', precaution = '$diseasesPre', solution = '$diseasesSol' WHERE idDisease = '$diseasesId'");
+    }
 
     if ($update) {
+        header('location:doctor/page-diseases.php');
+    } else {
+        echo 'gagal';
+        header('location:doctor/page-diseases.php');
+    }
+}
+
+//delete diseases
+if (isset($_POST['deleteDisease'])) {
+    global $link;
+
+    $diseasesId = $_POST['idDiseases'];
+    $delete = mysqli_query($link, "DELETE FROM diseases WHERE idDisease = '$diseasesId'");
+    if ($delete) {
         header('location:doctor/page-diseases.php');
     } else {
         echo 'gagal';
@@ -365,4 +383,55 @@ function countExpertSystem($expertSystem){
     }
     
     return mysqli_fetch_assoc($count)['count'];
+}
+
+//add new rule
+if (isset($_POST['addNewRule'])) {
+    global $link;
+    $idDisease  = $_POST['thisIdDiseases'];
+    $idSymptom  = $_POST['thisIdSymptoms'];
+
+    $addToTable = mysqli_query($link, "INSERT INTO rules (idDisease, idSymptom) VALUES ('$idDisease','$idSymptom')");
+    if ($addToTable) {
+        echo "
+        <script>
+        window.location = 'doctor/page-rules.php';
+        </script>
+        ";
+    } else {
+        echo 'gagal';
+        echo "
+        <script>
+            window.location = 'doctor/page-rules.php';
+        </script>
+        ";
+    }
+}
+
+//delete rule
+if (isset($_POST['deleteRules'])) {
+    global $link;
+    $idDisease  = $_POST['idDisease'];
+
+    $delete = mysqli_query($link, "DELETE FROM rules WHERE idDisease = '$idDisease'");
+    if ($delete) {
+        header('location:doctor/page-rules.php');
+    } else {
+        echo 'gagal';
+        header('location:doctor/page-rules.php');
+    }
+}
+
+//delete diagnose
+if (isset($_POST['deleteDiagnose'])) {
+    global $link;
+    $idDiagnose = $_POST['diagnoseId'];
+    
+    $delete = mysqli_query($link, "DELETE FROM diagnoses WHERE idDiagnose  = '$idDiagnose'");
+    if ($delete) {
+        header('location:doctor/page-diagnoses.php');
+    } else {
+        echo 'gagal';
+        header('location:doctor/page-diagnoses.php');
+    }
 }

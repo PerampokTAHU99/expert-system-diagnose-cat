@@ -41,11 +41,10 @@ require 'function.php';
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-2">Welcome Back!</h1>
                                     </div>
                                     <div class="text-center">
-                                        <p class="mb-4">We get it, stuff happens. Just enter your email address below
-                                            and we'll send you a link to reset your password!</p>
+                                        <p class="mb-4">Welcome to expert system application for diagnosing diseases in cats. Just enter your username address below!</p>
                                     </div>
                                     <form class="user" action="checkLogin.php" method="POST">
                                         <div class="form-group">
@@ -63,12 +62,18 @@ require 'function.php';
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white mt-5">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Theo Fahrizal Syam 2023</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

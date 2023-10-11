@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-if(isset($_SESSION['roleId'])) {
-    if($_SESSION['roleId'] != '4002') {
+if (isset($_SESSION['roleId'])) {
+    if ($_SESSION['roleId'] != '4002') {
         header("location: ../login.php");
     }
-}else{
+} else {
     header("location: ../login.php");
 }
 require '../function.php';
@@ -99,7 +99,7 @@ require '../function.php';
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="page-diagnoses.php">
                     <i class="fas fa-fw fa-light fa-users"></i>
                     <i class="fa-light fa-clock-rotate-left"></i>
 
@@ -163,7 +163,7 @@ require '../function.php';
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['name'] ?></span>
                                 <img class="img-profile rounded-circle" src="../img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -185,8 +185,7 @@ require '../function.php';
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Data tables Diseases</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+                    <p class="mb-4">Pada halaman ini memuat tabel data manajemen informasi mengenai penyakit pada kucing.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -245,28 +244,12 @@ require '../function.php';
                                             <th>Nama Penyakit</th>
                                             <th>Nama Latin</th>
                                             <th>Gambar</th>
-                                            <th>Deskripsi</th>
-                                            <th>Pencegahan</th>
-                                            <th>Solusi</th>
                                             <th>aksi</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Kode Penyakit</th>
-                                            <th>Nama Penyakit</th>
-                                            <th>Nama Latin</th>
-                                            <th>Gambar</th>
-                                            <th>Deskripsi</th>
-                                            <th>Pencegahan</th>
-                                            <th>Solusi</th>
-                                            <th>aksi</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <?php
+                                        
+                                        <?php
                                             $takeAllDiseasesData = mysqli_query($link, "SELECT * FROM diseases");
                                             $i = 1;
                                             while ($data = mysqli_fetch_array($takeAllDiseasesData)) {
@@ -279,27 +262,30 @@ require '../function.php';
                                                 $precautionDisease = $data['precaution'];
                                                 $solutionDisease = $data['solution'];
                                             ?>
+                                            <tr>
                                                 <td class="text-center"><?= $i++ ?></td>
                                                 <td><?= $codeDisease ?></td>
                                                 <td><?= $nameDisease ?></td>
                                                 <td><?= $latinDisease ?></td>
                                                 <td><img src="../<?= $pictureDisease ?>" alt="Picture <?= $nameDisease ?> " width="250"></td>
-                                                <td><?= $descDisease ?></td>
-                                                <td><?= $precautionDisease ?></td>
-                                                <td><?= $solutionDisease ?></td>
                                                 <td class="text-center">
                                                     <div>
-                                                        <button type="button" class="btn btn-warning btn-sm mb-1" data-toggle="modal" data-target="#edit<?= $diseaseId; ?>">
-                                                            Edit
-                                                        </button>
-                                                        <span class="mx-1"></span>
-                                                        <input type="hidden" name="itemToDeleted" value="<?= $diseaseId; ?>">
-                                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete<?= $diseaseId; ?>">
-                                                            Delete
-                                                        </button>
+                                                        <form action="" method="POST">
+                                                            <button type="button" class="btn btn-warning btn-sm mb-1" data-toggle="modal" data-target="#edit<?= $diseaseId; ?>">
+                                                                Edit
+                                                            </button>
+                                                            <span class="mx-1"></span>
+                                                            <input type="hidden" name="itemToDeleted" value="<?= $diseaseId; ?>">
+                                                            <button type="button" class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#delete<?= $diseaseId; ?>">
+                                                                Delete
+                                                            </button>
+                                                            <span class="mx-1"></span>
+                                                            <button type="button" class="btn btn-success btn-sm mb-1" data-toggle="modal" data-target="#detail<?= $diseaseId; ?>">
+                                                                Detail
+                                                            </button>
+                                                        </form>
                                                     </div>
-                                                </td>
-                                        </tr>
+                                                    
                                         <!-- The Edit Modal -->
                                         <div class="modal fade" id="edit<?= $diseaseId; ?>">
                                             <div class="modal-dialog">
@@ -342,8 +328,9 @@ require '../function.php';
                                                                 <label for="diseasesSol" class="">Solusi Penyakit</label>
                                                                 <textarea class="form-control" name="diseasesSol" id="diseasesSol" required><?= $solutionDisease; ?></textarea>
                                                             </div>
-                                                            <input type="hidden" name="diseasesId" value="<?= $diseasesId; ?>">
+                                                            <input type="hidden" name="diseasesId" value="<?= $diseaseId; ?>">
                                                         </div>
+
                                                         <!-- Modal footer -->
                                                         <div class="modal-footer">
                                                             <button type="submit" name="updateDisease" class="btn btn-primary">Submit</button>
@@ -354,36 +341,72 @@ require '../function.php';
                                         </div>
 
                                         <!-- The Delete Modal -->
-                                        <div class="modal fade" id="delete<?= $symptomsId; ?>">
+                                        <div class="modal fade" id="delete<?= $diseaseId; ?>">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
 
                                                     <!-- Modal Header -->
                                                     <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
-                                                        <h4 class="modal-title">Hapus data gejala</h4>
+                                                        <h4 class="modal-title">Hapus data Penyakit</h4>
                                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                     </div>
 
                                                     <!-- Modal body -->
                                                     <form method="POST" action="../function.php">
                                                         <div class="modal-body">
-                                                            Apakah anda yakin menghapus <?= $symptomsDesc; ?> ?
+                                                            Apakah anda yakin menghapus <b><?= $nameDisease; ?></b> ?
                                                             <br>
-                                                            <input type="hidden" name="symptomsId" value="<?= $symptomsId; ?>">
+                                                            <input type="hidden" name="idDiseases" value="<?= $diseaseId; ?>">
                                                         </div>
                                                         <!-- Modal footer -->
                                                         <div class="modal-footer">
-                                                            <button type="submit" name="deleteSymptom" class="btn btn-danger">Delete</button>
+                                                            <button type="submit" name="deleteDisease" class="btn btn-danger">Delete</button>
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
 
+                                        <!-- The detail Modal -->
+                                        <div class="modal fade" id="detail<?= $diseaseId; ?>">
+                                            <div class="modal-dialog modal-xl">
+                                                <div class="modal-content">
+
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header ms-auto ms-md-0 me-3 me-lg-4">
+                                                        <h4 class="modal-title">Detail Penyakit</h4>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Deskripsi</th>
+                                                                        <th>Pencegahan</th>
+                                                                        <th>Solusi</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td><?= $descDisease ?></td>
+                                                                        <td><?= $precautionDisease ?></td>
+                                                                        <td><?= $solutionDisease ?></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                                </td>
+                                            </tr>
                                     <?php
-                                            };
+                                         };
                                     ?>
-                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -430,7 +453,7 @@ require '../function.php';
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.php">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>
