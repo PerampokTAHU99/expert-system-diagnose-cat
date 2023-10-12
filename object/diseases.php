@@ -1,8 +1,8 @@
 <?php
-require_once('../config/connDatabase.php');
+require_once('../function.php');
 
 if (empty($_GET)) {
-    $query = mysqli_query($conn, "SELECT * FROM diseases");
+    $query = mysqli_query($link, "SELECT * FROM diseases");
 
     $result = array();
     while ($row = mysqli_fetch_array($query)) {
@@ -21,12 +21,12 @@ if (empty($_GET)) {
     echo json_encode(
         array('result' => $result)
     );
-}else{
-    $query = mysqli_query($conn, "SELECT * FROM diseases WHERE idDisease = ". $_GET ['idDisease']);
+} else {
+    $query = mysqli_query($link, "SELECT * FROM diseases WHERE idDisease = " . $_GET['idDisease']);
 
     $result = array();
-    while ($row = $query -> fetch_assoc()) {
-        $result = array (
+    while ($row = $query->fetch_assoc()) {
+        $result = array(
             'idDisease' => $row['idDisease'],
             'codeOfDisease' => $row['codeOfDisease'],
             'nameOfDisease' => $row['nameOfDisease'],
@@ -38,7 +38,5 @@ if (empty($_GET)) {
         );
     }
 
-    echo json_encode(
-        array($result)
-    );
+    echo json_encode($result);
 }
