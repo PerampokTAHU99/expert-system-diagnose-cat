@@ -1,17 +1,14 @@
-# [Cat Diagnoses Expert System](https://startbootstrap.com/theme/sb-admin-2/)
-[SB Admin 2](https://startbootstrap.com/theme/sb-admin-2/) is an open source admin dashboard theme for [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/).
-
-For the legacy Bootstrap 3 version of this theme, you can view the [last stable release](https://github.com/StartBootstrap/startbootstrap-sb-admin-2/releases/tag/v3.3.7%2B1) of SB Admin 2 for Bootstrap 3.
+# Cat Diagnoses Expert System
+E-diagnose adalah salah satu aplikasi yang memberikan inovasi terbaru untuk mempermudah para pecinta hewan terkhusus spesies kucing. Dimana aplikasi ini memiliki sistem pakar yang dapat mendiagnosis sumber penyakit maupun gejala yang terdapat pada kucing. Tentu ini akan sangat membantu dikarenakan metode yang digunakan yaitu <i>forward chaining<i>
 
 ## Preview
 
-[![SB Admin 2 Preview](https://assets.startbootstrap.com/img/screenshots/themes/sb-admin-2.png)](https://startbootstrap.github.io/startbootstrap-sb-admin-2/)
+![web](https://github.com/PerampokTAHU99/expert-system-diagnose-cat/assets/70845307/18e85bc8-2785-48b2-bec1-4f0cd139757b)
 
-**[Launch Live Preview](https://startbootstrap.github.io/startbootstrap-sb-admin-2/)**
 
 ## Status
 
-[On Cnder Construction]
+On Under Construction
 
 
 ## Copyright and License
