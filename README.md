@@ -3,7 +3,7 @@ E-diagnose adalah salah satu aplikasi yang memberikan inovasi terbaru untuk memp
 
 ## Preview
 
-![web](https://github.com/PerampokTAHU99/expert-system-diagnose-cat/assets/70845307/18e85bc8-2785-48b2-bec1-4f0cd139757b)
+![web](https://github.com/PerampokTAHU99/expert-system-diagnose-cat/assets/70845307/de95e318-35ff-4cee-aeab-9c04290c2694)
 
 
 ## Status
