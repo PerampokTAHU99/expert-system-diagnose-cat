@@ -1,7 +1,9 @@
 <?php
 require_once('../function.php');
 
-if (empty($_GET)) {
+session_start();
+
+if (empty($_SESSION['idDisease'])) {
     $query = mysqli_query($link, "SELECT * FROM diseases");
 
     $result = array();
@@ -18,11 +20,15 @@ if (empty($_GET)) {
         ));
     }
 
+    header('Content-Type: application/json', true, 200);
     echo json_encode(
         array('result' => $result)
     );
 } else {
-    $query = mysqli_query($link, "SELECT * FROM diseases WHERE idDisease = " . $_GET['idDisease']);
+    $query = mysqli_query(
+        $link,
+        "SELECT * FROM diseases WHERE idDisease = " . $_SESSION['idDisease']
+    );
 
     $result = array();
     while ($row = $query->fetch_assoc()) {
@@ -38,5 +44,8 @@ if (empty($_GET)) {
         );
     }
 
+    header('Content-Type: application/json', true, 200);
     echo json_encode($result);
 }
+
+?>
