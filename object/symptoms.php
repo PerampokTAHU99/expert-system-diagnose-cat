@@ -22,7 +22,7 @@ if (empty($_SESSION['idSymptom'])) {
 } else {
     $query = mysqli_query(
         $link,
-        "SELECT * FROM symptoms WHERE idSymptom = ". $_SESSION['idSymptom']
+        "SELECT * FROM symptoms WHERE idSymptom = " . $_SESSION['idSymptom']
     );
 
     $result = array();
@@ -37,3 +37,5 @@ if (empty($_SESSION['idSymptom'])) {
     header('Content-Type: application/json', true, 200);
     echo json_encode($result);
 }
+
+?>
