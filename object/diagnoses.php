@@ -3,8 +3,11 @@ require_once('../function.php');
 
 session_start();
 
-if (empty($_GET)) {
-    $query = mysqli_query($link, "SELECT * FROM diagnoses");
+if (empty($_SESSION['idDiagnose'])) {
+    $query = mysqli_query(
+        $link,
+        "SELECT * FROM diagnoses WHERE userid = {$_SESSION['userId']}"
+    );
 
     $result = array();
     while ($row = mysqli_fetch_array($query)) {
@@ -23,7 +26,7 @@ if (empty($_GET)) {
 } else {
     $query = mysqli_query(
         $link,
-        "SELECT * FROM diagnoses WHERE idDiagnose = " . $_GET ['idDiagnose']
+        "SELECT * FROM diagnoses WHERE idDiagnose = " . $_SESSION['idDiagnose']
     );
 
     $result = array();
