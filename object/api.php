@@ -26,6 +26,9 @@ switch (METHOD) {
 
         header('Location: login.php');
         break;
+    case 'logout':
+        session_destroy();
+        break;
     case 'diseases':
         $_SESSION['idDisease'] = $_GET['idDisease'];
 
