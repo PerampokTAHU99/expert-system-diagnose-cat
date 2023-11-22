@@ -10,8 +10,7 @@ if (empty($_GET['method'])) {
     echo json_encode(
         array(
             'Status' => 404,
-            'Reason' => 'Alamat yang anda kunjungi tidak valid.
-            Untuk akses API harap masukan \'method\' sebagai parameter query.'
+            'Reason' => 'Alamat yang anda kunjungi tidak valid. Untuk akses API harap masukan \'method\' sebagai parameter query.'
         )
     );
     die(1);
@@ -28,6 +27,14 @@ switch (METHOD) {
         break;
     case 'logout':
         session_destroy();
+
+        header('Content-Type: application/json', true, 200);
+        echo json_encode(
+            [
+                'Status' => 200,
+                'Reason' => 'Logout Berhasil.'
+            ]
+        );
         break;
     case 'diseases':
         $_SESSION['idDisease'] = $_GET['idDisease'];
