@@ -17,7 +17,11 @@ if (empty($_SESSION['idSymptom'])) {
 
     header('Content-Type: application/json', true, 200);
     echo json_encode(
-        array('result' => $result)
+        array(
+            'Status' => 200,
+            'Reason' => 'Success',
+            'Result' => $result
+        )
     );
 } else {
     $query = mysqli_query(
@@ -35,7 +39,13 @@ if (empty($_SESSION['idSymptom'])) {
     }
 
     header('Content-Type: application/json', true, 200);
-    echo json_encode($result);
+    echo json_encode(
+        [
+            'Status' => 200,
+            'Reason' => 'Success',
+            'Result' => $result
+        ]
+    );
 }
 
 ?>

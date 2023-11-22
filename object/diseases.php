@@ -22,7 +22,11 @@ if (empty($_SESSION['idDisease'])) {
 
     header('Content-Type: application/json', true, 200);
     echo json_encode(
-        array('result' => $result)
+        array(
+            'Status' => 200,
+            'Reason' => 'Success',
+            'Result' => $result
+        )
     );
 } else {
     $query = mysqli_query(
@@ -30,7 +34,6 @@ if (empty($_SESSION['idDisease'])) {
         "SELECT * FROM diseases WHERE idDisease = " . $_SESSION['idDisease']
     );
 
-    $result = array();
     while ($row = $query->fetch_assoc()) {
         $result = array(
             'idDisease' => $row['idDisease'],
@@ -45,7 +48,13 @@ if (empty($_SESSION['idDisease'])) {
     }
 
     header('Content-Type: application/json', true, 200);
-    echo json_encode($result);
+    echo json_encode(
+        [
+            'Status' => 200,
+            'Reason' => 'Success',
+            'Result' => $result
+        ]
+    );
 }
 
 ?>
