@@ -35,7 +35,7 @@ function auth() {
         echo json_encode(
             array(
                 'Status' => 401,
-                'Reason' => 'Token tidak valid. Harap login ulang.'
+                'Reason' => 'Token tidak valid (atau expired). Harap login ulang.'
             )
         );
 

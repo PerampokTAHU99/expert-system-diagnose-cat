@@ -49,6 +49,7 @@ $payload = [
     'username' => $data['username'],
     'email' => $data['email'],
     'roleId' => $data['roleId'],
+    'exp' => time() + 7200,
 ];
 
 $jwt = JWT::encode($payload, $_ENV['SECRET_KEY'], 'HS256');
