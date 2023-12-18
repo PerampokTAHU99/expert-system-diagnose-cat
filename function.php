@@ -1,6 +1,6 @@
 <?php
 //connection db
-$link = mysqli_connect("localhost", "root", "", "diagnose_cat");
+$link = mysqli_connect("34.101.131.144", "devel", "", "catcare-db");
 if (!$link) {
     die("Koneksi dengan database gagal : " . mysqli_connect_error() . " - " . mysqli_connect_error());
 }

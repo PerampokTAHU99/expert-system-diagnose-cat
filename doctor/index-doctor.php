@@ -200,7 +200,7 @@ require '../function.php';
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Data Gejala</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $disease ?></div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $symptom ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -218,7 +218,7 @@ require '../function.php';
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 Data Penyakit</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $symptom ?></div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $disease ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
