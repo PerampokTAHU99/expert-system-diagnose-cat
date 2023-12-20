@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2023 at 03:47 PM
+-- Generation Time: Dec 20, 2023 at 07:51 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `diagnose_cat`
+-- Database: `catcare-db`
 --
 
 -- --------------------------------------------------------
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `diagnoses` (
-  `idDiagnose` int(5) NOT NULL,
-  `date` date NOT NULL,
-  `idDisease` int(4) NOT NULL,
-  `userId` int(6) NOT NULL
+  `idDiagnose` int(11) NOT NULL,
+  `date` datetime NOT NULL DEFAULT current_timestamp(),
+  `idDisease` int(11) NOT NULL,
+  `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -39,7 +39,13 @@ CREATE TABLE `diagnoses` (
 --
 
 INSERT INTO `diagnoses` (`idDiagnose`, `date`, `idDisease`, `userId`) VALUES
-(2001, '2023-09-26', 1003, 5021);
+(2001, '2023-09-26 00:00:00', 1003, 5021),
+(2004, '2023-12-17 17:33:33', 1001, 5041),
+(2007, '2023-12-18 01:08:21', 1003, 5041),
+(2011, '2023-12-19 00:54:52', 1004, 5021),
+(2012, '2023-12-19 10:58:54', 1001, 5041),
+(2013, '2023-12-19 13:41:43', 1002, 5041),
+(2014, '2023-12-19 15:36:17', 1001, 5042);
 
 -- --------------------------------------------------------
 
@@ -48,7 +54,7 @@ INSERT INTO `diagnoses` (`idDiagnose`, `date`, `idDisease`, `userId`) VALUES
 --
 
 CREATE TABLE `diseases` (
-  `idDisease` int(4) NOT NULL,
+  `idDisease` int(11) NOT NULL,
   `codeOfDisease` varchar(5) NOT NULL,
   `nameOfDisease` varchar(30) NOT NULL,
   `latinNameOfDisease` varchar(40) NOT NULL,
@@ -79,7 +85,7 @@ INSERT INTO `diseases` (`idDisease`, `codeOfDisease`, `nameOfDisease`, `latinNam
 --
 
 CREATE TABLE `roles` (
-  `roleId` int(5) NOT NULL,
+  `roleId` int(11) NOT NULL,
   `typeOfRole` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -99,9 +105,9 @@ INSERT INTO `roles` (`roleId`, `typeOfRole`) VALUES
 --
 
 CREATE TABLE `rules` (
-  `rulesId` int(5) NOT NULL,
-  `idDisease` int(4) NOT NULL,
-  `idSymptom` int(4) NOT NULL
+  `rulesId` int(11) NOT NULL,
+  `idDisease` int(11) NOT NULL,
+  `idSymptom` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -112,7 +118,48 @@ INSERT INTO `rules` (`rulesId`, `idDisease`, `idSymptom`) VALUES
 (6001, 1001, 3001),
 (6002, 1001, 3006),
 (6003, 1001, 3010),
-(6004, 1001, 3029);
+(6004, 1001, 3029),
+(6007, 1003, 3003),
+(6008, 1003, 3004),
+(6009, 1003, 3005),
+(6010, 1003, 3007),
+(6011, 1003, 3018),
+(6012, 1003, 3035),
+(6013, 1002, 3003),
+(6014, 1002, 3007),
+(6015, 1002, 3015),
+(6016, 1002, 3024),
+(6017, 1002, 3026),
+(6018, 1004, 3004),
+(6019, 1004, 3005),
+(6020, 1004, 3006),
+(6021, 1004, 3008),
+(6022, 1004, 3022),
+(6023, 1005, 3008),
+(6024, 1005, 3009),
+(6025, 1005, 3012),
+(6026, 1005, 3013),
+(6027, 1005, 3014),
+(6028, 1005, 3016),
+(6029, 1005, 3017),
+(6030, 1005, 3021),
+(6031, 1005, 3030),
+(6032, 1006, 3001),
+(6033, 1006, 3008),
+(6034, 1006, 3009),
+(6035, 1006, 3025),
+(6036, 1006, 3031),
+(6037, 1007, 3001),
+(6038, 1007, 3006),
+(6039, 1007, 3008),
+(6040, 1007, 3011),
+(6041, 1007, 3034),
+(6042, 1007, 3023),
+(6043, 1008, 3012),
+(6044, 1008, 3020),
+(6045, 1008, 3027),
+(6046, 1008, 3028),
+(6047, 1008, 3033);
 
 -- --------------------------------------------------------
 
@@ -121,7 +168,7 @@ INSERT INTO `rules` (`rulesId`, `idDisease`, `idSymptom`) VALUES
 --
 
 CREATE TABLE `symptoms` (
-  `idSymptom` int(4) NOT NULL,
+  `idSymptom` int(11) NOT NULL,
   `codeOfSymptom` varchar(5) NOT NULL,
   `descOfSymptom` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -175,12 +222,12 @@ INSERT INTO `symptoms` (`idSymptom`, `codeOfSymptom`, `descOfSymptom`) VALUES
 --
 
 CREATE TABLE `users` (
-  `userId` int(6) NOT NULL,
+  `userId` int(11) NOT NULL,
   `name` varchar(25) NOT NULL,
   `username` varchar(25) NOT NULL,
   `email` varchar(25) NOT NULL,
   `password` varchar(25) NOT NULL,
-  `roleId` int(5) NOT NULL
+  `roleId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -188,13 +235,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userId`, `name`, `username`, `email`, `password`, `roleId`) VALUES
-(5001, 'admin', 'admin', 'admin@gmail.com', 'admin', 4001),
+(5001, 'Administrator', 'admin', 'admin@gmail.com', 'admin', 4001),
 (5007, 'Padiansyah', 'padi', 'pakpadioye@gmail.com', 'asd', 4001),
 (5013, 'Heru Gunawan, S.KH', 'herguns', 'heru@gmail.com', 'hers', 4002),
 (5017, 'Hendra Wijaya', 'hendw', 'Hendraw@gmail.com', 'hendra', 4003),
 (5018, 'Reynaldi Gustavo', 'deden', 'reynaldi@gmail.com', 'dens', 4001),
 (5019, 'Wildan Friana, S.KH', 'emo', 'emo@ymail.com', 'yatim', 4002),
-(5021, 'Rosidah Naetulah', 'rosi', 'rosi@ymail.com', 'ros123', 4003);
+(5021, 'Rosidah Naetulah', 'rosi', 'rosi@ymail.com', 'ros123', 4003),
+(5041, 'Mameng Galuh', 'mameng', 'mameng.galuh@gmail.com', 'mameng', 4003),
+(5042, 'yuda', 'yuda', 'yuda@gmail.com', 'yuda', 4003);
 
 --
 -- Indexes for dumped tables
@@ -249,37 +298,37 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `diagnoses`
 --
 ALTER TABLE `diagnoses`
-  MODIFY `idDiagnose` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2004;
+  MODIFY `idDiagnose` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2015;
 
 --
 -- AUTO_INCREMENT for table `diseases`
 --
 ALTER TABLE `diseases`
-  MODIFY `idDisease` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1022;
+  MODIFY `idDisease` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1022;
 
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `roleId` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4004;
+  MODIFY `roleId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4004;
 
 --
 -- AUTO_INCREMENT for table `rules`
 --
 ALTER TABLE `rules`
-  MODIFY `rulesId` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6005;
+  MODIFY `rulesId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6053;
 
 --
 -- AUTO_INCREMENT for table `symptoms`
 --
 ALTER TABLE `symptoms`
-  MODIFY `idSymptom` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3044;
+  MODIFY `idSymptom` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3044;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userId` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5041;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5043;
 
 --
 -- Constraints for dumped tables
