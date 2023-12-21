@@ -203,7 +203,7 @@ require '../function.php';
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $symptom ?></div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                            <i class="fas fa-disease fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -221,7 +221,7 @@ require '../function.php';
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $disease ?></div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <i class="fas fa-viruses fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -266,7 +266,7 @@ require '../function.php';
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$diagnose?></div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                            <i class="fas fa-stethoscope fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>

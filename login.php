@@ -26,7 +26,7 @@ require 'function.php';
 
 <body class="bg-gradient-primary">
 
-    <div class="container">
+    <div class="container mb-5">
 
         <!-- Outer Row -->
         <div class="row justify-content-center">
@@ -66,7 +66,7 @@ require 'function.php';
         </div>
     </div>
     <!-- Footer -->
-    <footer class="sticky-footer bg-white mt-5">
+    <footer class="sticky-footer bg-white position-absolute" style="left: 0; right: 0; bottom: 0">
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
                 <span>Copyright &copy; Theo Fahrizal Syam 2023</span>
