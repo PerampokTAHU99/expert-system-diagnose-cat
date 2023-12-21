@@ -274,7 +274,7 @@ require '../function.php';
                                             $nameDisease = $data['nameOfDisease'];
 
                                             $takeAllRuleData = mysqli_query($link,"SELECT * FROM rules JOIN symptoms USING(idSymptom) WHERE idDisease = $diseaseId");
-                                            $i = 1;
+                                            
 
                                             $total = mysqli_num_rows($takeAllRuleData);
                                         ?>
