@@ -267,7 +267,12 @@ require '../function.php';
                                                 <td><?= $codeDisease ?></td>
                                                 <td><?= $nameDisease ?></td>
                                                 <td><?= $latinDisease ?></td>
-                                                <td><img src="../<?= $pictureDisease ?>" alt="Picture <?= $nameDisease ?> " width="250"></td>
+                                                <?php
+                                                    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+                                                    $host = $_SERVER['HTTP_HOST'] . '/' . 'cat-care/' . 'cat-care-img/';
+                                                    $rootUrl = $protocol . $host;
+                                                ?>
+                                                <td><img src="<?= $rootUrl . $pictureDisease ?>" alt="Picture <?= $nameDisease ?> " width="250"></td>
                                                 <td class="text-center">
                                                     <div>
                                                         <form action="" method="POST">

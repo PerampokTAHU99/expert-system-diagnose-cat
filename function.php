@@ -1,7 +1,7 @@
 <?php
 //connection db
-// $link = mysqli_connect("34.101.131.144", "devel", "", "catcare-db");
-$link = mysqli_connect("localhost", "root", "", "catcare-db");
+$link = mysqli_connect("cat-care.my.id", "devel", "", "catcare-db");
+// $link = mysqli_connect("localhost", "root", "", "catcare-db");
 
 if (!$link) {
     die("Koneksi dengan database gagal : " . mysqli_connect_error() . " - " . mysqli_connect_error());
@@ -238,7 +238,7 @@ if (isset($_POST['deleteSymptom'])) {
 //upload picture
 function upload()
 {
-    $targetDir = 'img/diseases/diseases'; // Directory where you want to save the uploaded images
+    $targetDir = $_SERVER['DOCUMENT_ROOT'] . '/' . 'cat-care/' . 'cat-care-img/'; // Directory where you want to save the uploaded images
     $nameExt = explode('.', $_FILES["picture"]["name"]);
     $nameExt = end($nameExt);
     $nameFile = basename(time() . '.' . $nameExt);
@@ -258,7 +258,7 @@ function upload()
     }
 
     // Check if file already exists
-    if (file_exists($nameFile)) {
+    if (file_exists($targetFile)) {
         echo "File already exists.";
         $uploadOk = 0;
     }
@@ -282,8 +282,7 @@ function upload()
         echo "File was not uploaded.";
     } else {
         if (move_uploaded_file($_FILES["picture"]["tmp_name"], $targetFile)) {
-            echo "File has been uploaded.";
-            return $targetFile;
+            return $nameFile;
         } else {
             echo "There was an error uploading the file.";
         }
